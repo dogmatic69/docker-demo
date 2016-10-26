@@ -1,0 +1,50 @@
+version: "2"
+volumes:
+    consul_data: {}
+    haproxy_data: {}
+
+services:
+    consul:
+        image: gliderlabs/consul-server
+        command: -server -bootstrap-expect=1
+        hostname: docker.test
+        ports:
+            - "1800:8500"
+        restart: "always"
+        volumes:
+            - "consul_data:/data"
+
+    registrator:
+        image: gliderlabs/registrator
+        command: -internal consul://consul.docker.test:8500
+        hostname: docker.test
+        links:
+            - "consul:consul.docker.test"
+        restart: "always"
+        volumes:
+            - "/var/run/docker.sock:/tmp/docker.sock"
+
+    haproxy:
+        image: docker/haproxy
+        environment:
+            HAPROXY_STATS: "true"
+            HAPROXY_MODE: "consul"
+            CONSUL_CONNECT: "consul.docker.test:8500"
+            HAPROXY_DOMAIN: "docker.test"
+            HAPROXY_USESSL: "1"
+            #HAPROXY_USE_UI_PROXY: "1"
+        links:
+            - "consul:consul.docker.test"
+        ports:
+            - "80:80"
+            - "443:443"
+            - "1936:1936"
+        restart: "always"
+        volumes:
+            - "haproxy_data:/haproxy"
+
+    docker_nodejs:
+        image: docker/nodejs
+        restart: "always"
+        volumes:
+            - "./:/app"
