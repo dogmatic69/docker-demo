@@ -1,4 +1,5 @@
 version: "2"
+
 volumes:
     consul_data: {}
     haproxy_data: {}
@@ -32,7 +33,6 @@ services:
             CONSUL_CONNECT: "consul.docker.test:8500"
             HAPROXY_DOMAIN: "docker.test"
             HAPROXY_USESSL: "1"
-            #HAPROXY_USE_UI_PROXY: "1"
         links:
             - "consul:consul.docker.test"
         ports:
@@ -43,7 +43,7 @@ services:
         volumes:
             - "haproxy_data:/haproxy"
 
-    docker_nodejs:
+    nodejs:
         image: docker/nodejs
         restart: "always"
         volumes:

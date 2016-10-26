@@ -1,7 +1,7 @@
 version: "2"
 
 services:
-    docker_nodejs:
+    nodejs:
         image: docker/nodejs
         ports:
             - "4321:1234"

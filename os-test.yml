@@ -1,0 +1,34 @@
+version: "2"
+
+services:
+    ubuntu-12:
+        image: docker/ubuntu-12
+        restart: "always"
+
+    ubuntu-14:
+        image: docker/ubuntu-14
+        restart: "always"
+
+    ubuntu-16:
+        image: docker/ubuntu-16
+        restart: "always"
+
+    ubuntu-custom:
+        image: docker/ubuntu-custom
+        restart: "always"
+
+    fedora-21:
+        image: docker/fedora-21
+        restart: "always"
+
+    fedora-22:
+        image: docker/fedora-22
+        restart: "always"
+
+    fedora-23:
+        image: docker/fedora-23
+        restart: "always"
+
+    fedora-24:
+        image: docker/fedora-24
+        restart: "always"
