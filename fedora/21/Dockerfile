@@ -1,3 +1,3 @@
-FROM fedora:22
+FROM fedora:21
 
 CMD tail -f /dev/null

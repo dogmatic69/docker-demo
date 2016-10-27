@@ -35,9 +35,7 @@ docker build -t docker/fedora-21 fedora/21
 
 # build the nodejs app
 docker build -t docker/nodejs nodejs
-docker run --rm -it docker/nodejs bash # same as before, nothing new.
-
-docker run --rm -it --entrypoint bash docker/nodejs # let explore
+docker run --rm -it --entrypoint bash docker/nodejs # same as before, nothing new.
     # on the container
     /app/start.sh & # because we overrode the entrypoint to use bash
     w3m http://localhost:1234/info # can only be accessed from within the container
@@ -46,7 +44,7 @@ wget -o - http://localhost:8080/info # wont work, nothing is listening
 
 docker run --rm -it -p 8080:1234 docker/nodejs # forward the port from the container to the host, now its accessible.
 
-wget -o - http://localhost:8080/info 2>/dev/null | jq -r ".Network[0].address" - # tada
+wget -O - http://localhost:8080/info 2>/dev/null | jq -r ".Network[0].address" - # tada
 
 #####################################
 #
